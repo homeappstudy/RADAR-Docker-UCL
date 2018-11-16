@@ -23,7 +23,7 @@ done
 # Ensure that the base image exists
 docker pull postgres:${NEW_VERSION}
 
-POSTGRES_NEW_DIR="${MP_POSTGRES_DIR}/data-${NEW_VERSION}"
+POSTGRES_NEW_DIR="${RB_POSTGRES_DIR}/data-${NEW_VERSION}"
 
 if [ -e "${POSTGRES_NEW_DIR}" ]; then
   echo "Please remove old temporary directory $POSTGRES_NEW_DIR before proceeding"
@@ -44,9 +44,9 @@ echo "==> Stopping postgres..."
 docker-compose stop managementportal-postgresql
 docker-compose rm -vf managementportal-postgresql
 
-echo "==> Moving old data to backup ${MP_POSTGRES_DIR}/data-backup-$(date +%FT%TZ)/"
-mv "${MP_POSTGRES_DIR}/data/" "${MP_POSTGRES_DIR}/data-backup-$(date +%FT%TZ)/"
-mv "${POSTGRES_NEW_DIR}" "${MP_POSTGRES_DIR}/data/"
+echo "==> Moving old data to backup ${RB_POSTGRES_DIR}/data-backup-$(date +%FT%TZ)/"
+mv "${RB_POSTGRES_DIR}/data/" "${RB_POSTGRES_DIR}/data-backup-$(date +%FT%TZ)/"
+mv "${POSTGRES_NEW_DIR}" "${RB_POSTGRES_DIR}/data/"
 
 # change postgres version
 inline_variable " image: postgres:" "${NEW_VERSION}" docker-compose.yml

@@ -85,10 +85,6 @@ http {
       proxy_http_version 1.1;
       proxy_set_header   Connection "";
     }
-    location /dashboard/ {
-      proxy_pass         http://dashboard:80/;
-      proxy_set_header   Host $host;
-    }
     location /portainer/ {
       include ip-access-control.conf;
 
@@ -103,29 +99,6 @@ http {
       proxy_set_header   Connection "upgrade";
       proxy_http_version 1.1;
     }
-    location /api/ {
-      include cors.conf;
-      proxy_pass         http://rest-api:8080/api/;
-      proxy_set_header   Host $host;
-    }
-    location /managementportal/ {
-      include cors.conf;
-      proxy_pass         http://managementportal-app:8080/managementportal/;
-      proxy_set_header   Host $host;
-    }
-    location /managementportal/oauth/ {
-      # Allow 20 fast-following requests, like when authorizing a user.
-      limit_req zone=login_limit burst=20;
-      include cors.conf;
-      proxy_pass         http://managementportal-app:8080/managementportal/oauth/;
-      proxy_set_header   Host $host;
-    }
-    location /managementportal/api/meta-token/ {
-      limit_req zone=login_limit;
-      include cors.conf;
-      proxy_pass         http://managementportal-app:8080/managementportal/api/meta-token/;
-      proxy_set_header   Host $host;
-    }
     location /kafkamanager/{
       include ip-access-control.conf;
       auth_basic         "Kafka manager";
@@ -134,6 +107,5 @@ http {
       proxy_pass         http://kafka-manager:9000;
       proxy_set_header   Host $host;
     }
-    include optional-services.conf;
   }
 }

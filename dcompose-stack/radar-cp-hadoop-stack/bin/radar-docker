@@ -3,11 +3,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 . .env
 
-if [[ "${ENABLE_OPTIONAL_SERVICES}" = "true" ]]; then
-  stack="${DOCKER_COMPOSE:-docker-compose} -f docker-compose.yml -f optional-services.yml"
-else
-  stack=${DOCKER_COMPOSE:-docker-compose}
-fi
+stack=${DOCKER_COMPOSE:-docker-compose}
 
 
 function print_usage() {
