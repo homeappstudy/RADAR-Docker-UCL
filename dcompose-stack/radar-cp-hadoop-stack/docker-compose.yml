@@ -17,6 +17,9 @@ networks:
   monitor:
     driver: bridge
     internal: true
+  security:
+    driver: bridge
+    internal: true
   hadoop:
     external: true
 
@@ -523,11 +526,9 @@ services:
 
 
   radarbase-postgresql:
-    build:
-      context: ./images/postgres
-      args:
-        POSTGRES_VERSION: ${POSTGRES_VERSION}
-    image: radarbase/postgres:${POSTGRES_VERSION}-1
+    image: postgres:${POSTGRES_VERSION}
+    networks:
+      - security
     volumes:
       - "${RB_POSTGRES_DIR}/data/:/var/lib/postgresql/data/"
       - "./postgres-backup/backups/postgresql:/backups/database/postgresql/"
@@ -535,12 +536,32 @@ services:
     environment:
       POSTGRES_USER : ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_MULTIPLE_DATABASES: rbkeycloak
+      POSTGRES_DB: rbkeycloak
     healthcheck:
       test: ["CMD-SHELL", "PGPASSWORD='${POSTGRES_PASSWORD}' psql -U '${POSTGRES_USER}' rbkeycloak -l || exit 1"]
       interval: 1m30s
       timeout: 5s
       retries: 3
+
+  radarbase-keycloak:
+    build: images/keycloak
+    image: radarbase/keycloak:4.4.0.Final
+    networks:
+      - api
+      - security
+    environment:
+      KEYCLOAK_USER : ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      DB_VENDOR: postgres
+      DB_ADDR: radarbase-postgresql
+      DB_PORT: 5432
+      DB_DATABASE: rbkeycloak
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      PROXY_ADDRESS_FORWARDING: "true"
+    depends_on:
+      - radarbase-postgresql
+    restart: always
 
   #---------------------------------------------------------------------------#
   # Kafka Manager                                                             #
