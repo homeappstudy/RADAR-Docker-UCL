@@ -56,3 +56,11 @@ div.kc-logo-text {
     background-color: rgba(206, 238, 255, 0.8);
     color: #312d90;
 }
+
+hr {
+    display: block;
+    height: 0px;
+    border: 2px solid #312d90;
+    margin: 1em 0;
+    padding: 0;
+}
