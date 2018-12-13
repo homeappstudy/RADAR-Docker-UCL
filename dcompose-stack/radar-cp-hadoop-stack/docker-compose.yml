@@ -38,6 +38,7 @@ volumes:
     external: true
   certs-data:
     external: true
+  keycloak-exports: {}
 
 services:
   #---------------------------------------------------------------------------#
@@ -607,3 +608,18 @@ services:
       interval: 1m30s
       timeout: 5s
       retries: 3
+
+  sftp:
+    image: mighealth/sftp:alpine
+    build: images/sftp
+    networks:
+      - default
+    ports:
+      - "2222:22"
+    volumes:
+      - ${RESTRUCTURE_OUTPUT_DIR}:/data/data:ro
+      - keycloak-exports:/data/keycloak:ro
+      - ./etc/sftp/users.conf:/etc/sftp/users.conf:ro
+      - ./etc/sftp/authorized_keys:/etc/sftp/authorized_keys:ro
+      - ./etc/sftp/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
+      - ./etc/sftp/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro

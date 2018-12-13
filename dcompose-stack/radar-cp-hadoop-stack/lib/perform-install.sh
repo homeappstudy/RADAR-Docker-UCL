@@ -95,6 +95,31 @@ ensure_variable 'topics=' "${COMBINED_RAW_TOPIC_LIST}" etc/hdfs-connector/sink-h
 echo "==> Configuring Kafka-manager"
 sudo-linux docker run --rm httpd:2.4-alpine htpasswd -nbB "${KAFKA_MANAGER_USERNAME}" "${KAFKA_MANAGER_PASSWORD}" > etc/webserver/kafka-manager.htpasswd
 
+echo  "==> Configuring SFTP"
+function ensure_sftp_host_key() {
+  local keyType=$1
+  local keyFile=etc/sftp/ssh_host_${keyType}_key
+
+  if [ ! -f $keyFile ]; then
+    echo "--> Creating SFTP host key file $keyFile"
+    if [ -d $keyFile ]; then
+      rmdir $keyFile
+    fi
+    ssh-keygen -t $keyType -f $keyFile -N "" > /dev/null
+    rm $keyFile.pub
+  fi
+}
+ensure_sftp_host_key ed25519
+ensure_sftp_host_key rsa
+
+if [ ! -f etc/sftp/users.conf ]; then
+  if [ -d etc/sftp/users.conf ]; then
+    rmdir etc/sftp/users.conf
+  fi
+  touch etc/sftp/users.conf
+fi
+
+
 echo "==> Configuring nginx"
 inline_variable 'server_name[[:space:]]*' "${SERVER_NAME};" etc/webserver/nginx.conf
 sed_i 's|\(/etc/letsencrypt/live/\)[^/]*\(/.*\.pem\)|\1'"${SERVER_NAME}"'\2|' etc/webserver/nginx.conf
