@@ -205,3 +205,7 @@ To add a script to `CRON` as `root`, run on the command-line `sudo crontab -e -u
 ```
 
 For example, `*/2 * * * * /absolute/path/to/script-name.sh` will execute `script-name.sh` every `2` minutes.
+
+## SFTP
+
+SFTP is available on port 2222. Add users by adding a line to `etc/sftp/users.conf` in the format `username:password`. If the user has an SSH key (recommended), then the password should be left empty, and the public key should be added to `etc/sftp/authorized_keys/<username>`.
