@@ -21,3 +21,5 @@ radar-is.yml
 /sftp/users.conf
 /sftp/authorized_keys/*
 /sftp/ssh_host_*_key
+/gateway/gateway.yml
+/gateway/keystore.p12

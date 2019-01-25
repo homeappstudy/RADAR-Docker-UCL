@@ -5,10 +5,3 @@ schemaRegistryUrl: http://schema-registry-1:8081
 jwtKeystorePath: etc/gateway/gateway.yml
 jwtKeystoreAlias: radarbase-keycloak-ec
 jwtKeystorePassword:
-jwtKeystorePassword: radarbase
-jwtECPublicKeys:
-  - |-
-    -----BEGIN EC PUBLIC KEY-----
-    MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE/pX6rcnqctCokLJdxhopxkKv54VT
-    F3vCr0cD6991la8y3c7xdMwPpVD0wN7+4N4kjSOUMI/QmqIBC00cIRlRDw==
-    -----END EC PUBLIC KEY-----

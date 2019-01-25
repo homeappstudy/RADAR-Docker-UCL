@@ -15,6 +15,7 @@ check_config_present etc/radar-backend/radar.yml
 copy_template_if_absent etc/hdfs-connector/sink-hdfs.properties
 copy_template_if_absent etc/webserver/nginx.conf
 copy_template_if_absent etc/webserver/ip-access-control.conf
+copy_template_if_absent etc/gateway/gateway.yml
 
 # Set permissions
 sudo-linux chmod og-rw ./.env
@@ -79,7 +80,7 @@ sudo-linux bin/radar-docker exec -T kafka-1 bash -c "$KAFKA_SCHEMA_RETENTION_CMD
 
 KAFKA_INIT_OPTS=(
     --rm -v "$PWD/etc/schema:/schema/conf"
-    radarbase/kafka-init:0.3.6
+    radarbase/kafka-init:${RADAR_SCHEMAS_VERSION}
   )
 
 # Set topics
@@ -91,6 +92,10 @@ if [ -z "${COMBINED_RAW_TOPIC_LIST}"]; then
   fi
 fi
 ensure_variable 'topics=' "${COMBINED_RAW_TOPIC_LIST}" etc/hdfs-connector/sink-hdfs.properties
+
+
+echo "==> Initialize keystore and configure Gateway properties"
+bin/keystore-init
 
 echo "==> Configuring Kafka-manager"
 sudo-linux docker run --rm httpd:2.4-alpine htpasswd -nbB "${KAFKA_MANAGER_USERNAME}" "${KAFKA_MANAGER_PASSWORD}" > etc/webserver/kafka-manager.htpasswd
