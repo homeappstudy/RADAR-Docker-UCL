@@ -545,11 +545,12 @@ services:
       retries: 3
 
   radarbase-keycloak:
-    build: images/keycloak
-    image: radarbase/keycloak:4.4.0.Final
+    image: jboss/keycloak:4.4.0.Final
     networks:
       - api
       - security
+    volumes:
+      - ./images/keycloak/theme/ucl:/opt/jboss/keycloak/themes/ucl
     environment:
       KEYCLOAK_USER : ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
@@ -623,3 +624,4 @@ services:
       - ./etc/sftp/authorized_keys:/etc/sftp/authorized_keys:ro
       - ./etc/sftp/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
       - ./etc/sftp/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro
+
