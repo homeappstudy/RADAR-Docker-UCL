@@ -548,7 +548,7 @@ services:
       retries: 3
 
   radarbase-keycloak:
-    image: jboss/keycloak:4.4.0.Final
+    image: jboss/keycloak:4.8.3.Final
     networks:
       - api
       - security
