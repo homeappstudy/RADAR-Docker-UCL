@@ -93,10 +93,6 @@ if [ -z "${COMBINED_RAW_TOPIC_LIST}"]; then
 fi
 ensure_variable 'topics=' "${COMBINED_RAW_TOPIC_LIST}" etc/hdfs-connector/sink-hdfs.properties
 
-
-echo "==> Initialize keystore and configure Gateway properties"
-bin/keystore-init
-
 echo "==> Configuring Kafka-manager"
 sudo-linux docker run --rm httpd:2.4-alpine htpasswd -nbB "${KAFKA_MANAGER_USERNAME}" "${KAFKA_MANAGER_PASSWORD}" > etc/webserver/kafka-manager.htpasswd
 
