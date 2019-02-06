@@ -2,6 +2,9 @@ baseUri: http://0.0.0.0/radar-gateway/
 managementPortalUrl: http://managementportal-app:8080/managementportal
 restProxyUrl: http://rest-proxy-1:8082
 schemaRegistryUrl: http://schema-registry-1:8081
-jwtKeystorePath: etc/gateway/gateway.yml
-jwtKeystoreAlias: radarbase-keycloak-ec
-jwtKeystorePassword:
+resourceConfig: org.radarcns.gateway.inject.EcdsaJwtGatewayResources
+jwtRSAPublicKeys:
+  - |-
+    -----BEGIN PUBLIC KEY-----
+    ...
+    -----END PUBLIC KEY-----
