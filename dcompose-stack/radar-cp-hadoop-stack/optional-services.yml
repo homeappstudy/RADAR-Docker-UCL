@@ -4,6 +4,7 @@ version: '2.2'
 
 volumes:
   fitbit-logs: {}
+  fcmxmpp-hsql: {}
 
 services:
   #---------------------------------------------------------------------------#
@@ -102,3 +103,15 @@ services:
       depends_on:
         - radar-rest-sources-backend
         - radarbase-postgresql
+
+  xmppserver:
+    image: radarbase/radar-xmppserver:0.1.0
+    build: images/fcmxmppserverv2
+    restart: always
+    environment:
+      RADAR_XMPP_FCM_SENDER_KEY: ${FCM_XMPP_SENDER_ID}
+      RADAR_XMPP_FCM_SERVER_KEY: ${FCM_XMPP_SERVER_KEY}
+      RADAR_XMPP_SCHEDULER_TYPE: persistent
+      RADAR_XMPP_DB_PATH: /usr/hsql/fcmxmpp.hsql
+    volumes:
+      - fcmxmpp-hsql:/usr/hsql/
