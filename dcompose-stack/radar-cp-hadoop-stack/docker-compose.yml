@@ -636,8 +636,6 @@ services:
     restart: always
     networks:
       - default
-    ports:
-      - 5236:5236
     environment:
       RADAR_XMPP_FCM_SENDER_KEY: ${FCM_XMPP_SENDER_ID}
       RADAR_XMPP_FCM_SERVER_KEY: ${FCM_XMPP_SERVER_KEY}
