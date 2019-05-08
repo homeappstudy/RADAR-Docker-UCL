@@ -621,7 +621,7 @@ services:
     networks:
       - default
     ports:
-      - "2222:22"
+      - "2222:2222"
     volumes:
       - ${RESTRUCTURE_OUTPUT_DIR}:/data/data:ro
       - keycloak-exports:/data/keycloak:ro
