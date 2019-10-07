@@ -38,9 +38,6 @@ volumes:
     external: true
   certs-data:
     external: true
-  keycloak-exports: {}
-  fcmxmpp-hsql: {}
-  fcmxmpp-logs: {}
 
 services:
   #---------------------------------------------------------------------------#
@@ -279,8 +276,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
       KAFKA_SCHEMA_REGISTRY: http://schema-registry-1:8081
       KAFKA_NUM_BROKERS: 3
-      RADAR_NUM_PARTITIONS: 3
-      RADAR_NUM_REPLICATION_FACTOR: 3
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_NUM_REPLICATION: 3
 
   #---------------------------------------------------------------------------#
   # RADAR Cold Storage                                                        #
@@ -413,7 +410,7 @@ services:
   # RADAR HDFS connector                                                     #
   #---------------------------------------------------------------------------#
   radar-hdfs-connector:
-    image: radarbase/radar-connect-hdfs-sink:0.2.0
+    image: radarbase/radar-connect-hdfs-sink:0.2.1
     restart: on-failure
     volumes:
       - ./etc/hdfs-connector/sink-hdfs.properties:/etc/kafka-connect/sink-hdfs.properties
@@ -505,7 +502,7 @@ services:
   # Webserver                                                                 #
   #---------------------------------------------------------------------------#
   webserver:
-    image: nginx:1.13.1-alpine
+    image: nginx:1.14.0-alpine
     restart: always
     networks:
       - api

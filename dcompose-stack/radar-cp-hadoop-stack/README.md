@@ -1,6 +1,13 @@
-# RADAR platform
+# RADAR-Docker for RADAR-base platform
 
-This docker-compose stack contains the full operational RADAR platform. Once configured, it is meant to run on a single server with at least 16 GB memory and 4 CPU cores. It is tested on Ubuntu 16.04 and on macOS 11.1 with Docker 17.06.
+This docker-compose stack contains the full operational RADAR-base platform. Once configured, it is meant to run on a single server with at least 16 GB memory and 4 CPU cores. It is tested on Ubuntu 16.04 and on macOS 11.1 with Docker 17.06.
+
+## Prerequisites
+
+- A Linux server that is available 24/7 with HTTP(S) ports open to the internet and with a domain name
+- Root access on the server.
+- Docker, Docker-compose, Java (JDK or JRE) and Git are installed
+- Basic knowledge on docker, docker-compose and git.
 
 ## Configuration
 
@@ -9,14 +16,14 @@ This is the set of minimal configuration required to run the stack.
 
 1. First copy `etc/env.template` file to `./.env` and check and modify all its variables.
 
-
-   1.1. To have a valid HTTPS connection for a public host, set `SELF_SIGNED_CERT=no`. You need to provide a public valid DNS name as `SERVER_NAME` for SSL certificate to work. IP addresses will not work.
+   1.1. To have a valid HTTPS connection for a public host, set `SELF_SIGNED_CERT=no`. You need to provide a public valid DNS name as `SERVER_NAME` for SSL certificate to work. IP addresses will not work. For a locally signed certificate, set `SELF_SIGNED_CERT=yes`. If HTTPS is to be disabled altogether, set `ENABLE_HTTPS=no`. If that is because the server is
+   behind a reverse proxy or load balancer, set `NGINX_PROXIES=1.2.3.4 5.6.7.8` as a space-separated list of proxy server IP addresses as forwarded in the `X-Forwarded-For` header.
 
    1.2. Leave the `PORTAINER_PASSWORD_HASH` variable in .env file empty and run the install script (`bin/radar-docker install`). This should query for a new password and set its hash in this variable. To update the password, just empty the variable again and run the install script.
 
 2. Copy `etc/smtp.env.template` to `etc/smtp.env` and configure your email settings. Configure alternative mail providers like Amazon SES or Gmail by using the parameters of the [`namshi/smtp` Docker image](https://hub.docker.com/r/namshi/smtp/).
 
-5. Finally, copy `etc/radar-backend/radar.yml.template` to `etc/radar-backend/radar.yml` and edit it, especially concerning the monitor email address configuration.
+3. Finally, copy `etc/radar-backend/radar.yml.template` to `etc/radar-backend/radar.yml` and edit it, especially concerning the monitor email address configuration.
 
 ### Optional
 This is a set of optional configuration which is not required but could be useful.
@@ -43,6 +50,13 @@ This is a set of optional configuration which is not required but could be usefu
 		CONNECT_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-1:9092,PLAINTEXT://kafka-2:9092,PLAINTEXT://kafka-3:9092
 		CONNECTOR_PROPERTY_FILE_PREFIX: "sink-hdfs"
 	```
+3. The systemd scripts described in the next paragraph include a health check. To enable system health notifications to Slack, install its [Incoming Webhooks app](https://api.slack.com/incoming-webhooks). With the webhook URL that you configure there, set in `.env`:
+
+      ```shell
+      HEALTHCHECK_SLACK_NOTIFY=yes
+      HEALTHCHECK_SLACK_WEBHOOK_URL=https://...
+      ```
+
 
 ## Usage
 
@@ -176,7 +190,53 @@ You can check the logs of CRON by typing `grep CRON /var/log/syslog`.
 
 ### HDFS
 
-This folder contains useful scripts to manage the extraction of data from HDFS in the RADAR-base Platform.
+#### Advanced Tuning
+
+To increase the amount of storage horizontally you can add multiple paths as destinations for data storage as follows -
+
+- Add the required paths as environment variables in `.env` file similar to the other hdfs paths like HDFS_DATA_DIR_<NODE#>_<VOLUME#> -
+    ```
+    ...
+    HDFS_DATA_DIR_1_1=/usr/local/var/lib/docker/hdfs-data-1
+    HDFS_DATA_DIR_2_1=/usr/local/var/lib/docker/hdfs-data-2
+    HDFS_DATA_DIR_3_1=/usr/local/var/lib/docker/hdfs-data-3
+    HDFS_DATA_DIR_1_2=/usr/local/var/lib/docker/hdfs-data-4
+    HDFS_DATA_DIR_2_2=/usr/local/var/lib/docker/hdfs-data-5
+    HDFS_DATA_DIR_3_2=/usr/local/var/lib/docker/hdfs-data-6
+    ...
+    ```
+- mount these to the required paths on the container using volume mounts (similar to the one already present) like -
+    ```yaml
+    ...
+    volumes:
+        - "${HDFS_DATA_DIR_1_1}:/hadoop/dfs/data"
+        - "${HDFS_DATA_DIR_1_2}:/hadoop/dfs/data2"
+    ...
+    ```
+    Assuming you named the environment variable for the host path as `HDFS_DATA_DIR_1_1` and `HDFS_DATA_DIR_1_2`
+- Add the `HADOOP_DFS_DATA_DIR` to each datanode adding a comma-delimited set of paths (possibly different volumes) to the environment of datanode services in ./docker-compose.yml file like -
+    ```yaml
+    ...
+    environment:
+      SERVICE_9866_NAME: datanode
+      SERVICE_9867_IGNORE: "true"
+      SERVICE_9864_IGNORE: "true"
+      HADOOP_HEAPSIZE: 1000
+      HADOOP_NAMENODE1_HOSTNAME: hdfs-namenode-1
+      HADOOP_DFS_REPLICATION: 2
+      HADOOP_DFS_DATA_DIR: file:///hadoop/dfs/data,file:///hadoop/dfs/data2
+      ...
+    ```
+- Add a check at the top of the `./lib/perform-install` script to make sure that the directory exists for each host directory-
+    ```bash
+    ...
+    check_parent_exists HDFS_DATA_DIR_1_1 ${HDFS_DATA_DIR_1_1}
+    ...
+    ```
+
+#### Management
+
+The RADAR-base platform contains useful scripts to manage the extraction of data from HDFS in the RADAR-base Platform.
 
 - `bin/hdfs-upgrade VERSION`
   - Perform an upgrade from an older version of the [Smizy HDFS base image](https://hub.docker.com/r/smizy/hadoop-base/) to a newer one. E.g. from `2.7.6-alpine`, which is compatible with the `uhopper` image, to `3.0.3-alpine`.
