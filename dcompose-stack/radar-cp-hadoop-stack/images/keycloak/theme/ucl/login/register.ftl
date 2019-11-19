@@ -6,47 +6,8 @@
     <#elseif section = "form">
         <form id="kc-register-form" class="${properties.kcFormClass!}" action="${url.registrationAction}" method="post">
 
+            <img src="${url.resourcesPath}/img/keycloak-logo-text.png">
 
-            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('email',properties.kcFormGroupErrorClass!)}">
-                <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="email" class="${properties.kcLabelClass!}">${msg("email")}</label>
-                </div>
-                <div class="${properties.kcInputWrapperClass!}">
-                    <input type="text" id="email" class="${properties.kcInputClass!}" name="email" value="${(register.formData.email!'')}" autocomplete="email" />
-                </div>
-            </div>
-
-          <#if !realm.registrationEmailAsUsername>
-            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('username',properties.kcFormGroupErrorClass!)}">
-                <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="username" class="${properties.kcLabelClass!}">${msg("username")}</label>
-                </div>
-                <div class="${properties.kcInputWrapperClass!}">
-                    <input type="text" id="username" class="${properties.kcInputClass!}" name="username" value="${(register.formData.username!'')}" autocomplete="username" />
-                </div>
-            </div>
-          </#if>
-
-            <#if passwordRequired>
-            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('password',properties.kcFormGroupErrorClass!)}">
-                <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
-                </div>
-                <div class="${properties.kcInputWrapperClass!}">
-                    <input type="password" id="password" class="${properties.kcInputClass!}" name="password" autocomplete="new-password"/>
-                </div>
-            </div>
-
-            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('password-confirm',properties.kcFormGroupErrorClass!)}">
-                <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="password-confirm" class="${properties.kcLabelClass!}">${msg("passwordConfirm")}</label>
-                </div>
-                <div class="${properties.kcInputWrapperClass!}">
-                    <input type="password" id="password-confirm" class="${properties.kcInputClass!}" name="password-confirm" />
-                </div>
-            </div>
-            </#if>
-            <hr/>
             <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('firstName',properties.kcFormGroupErrorClass!)}">
                 <div class="${properties.kcLabelWrapperClass!}">
                     <label for="firstName" class="${properties.kcLabelClass!}">${msg("firstName")}</label>
@@ -64,6 +25,7 @@
                     <input type="text" id="lastName" class="${properties.kcInputClass!}" name="lastName" value="${(register.formData.lastName!'')}" />
                 </div>
             </div>
+
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
@@ -87,11 +49,18 @@
                     <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Female" <#if (register.formData['user.attributes.sex']!'') == "Female" >checked</#if> style="margin-right: 0.4em;"> Female
                     </label>
+                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Don't know" <#if (register.formData['user.attributes.sex']!'') == "Female" >checked</#if> style="margin-right: 0.4em;"> Don't know
+                    </label>
+                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Prefer not to say" <#if (register.formData['user.attributes.sex']!'') == "Female" >checked</#if> style="margin-right: 0.4em;"> Prefer not to say
+                    </label>
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user-attributes-country" class="${properties.kcLabelClass!}">Country of origin</label>
+                    <label for="user-attributes-country" class="${properties.kcLabelClass!}">Where were you born?</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!}">
@@ -346,31 +315,83 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user-attributes-visaType" class="${properties.kcLabelClass!}">Visa type</label>
+                    <label for="user-attributes-visaType" class="${properties.kcLabelClass!}">What is your current immigration status in the UK?</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!}">
                     <select id="user-attributes-visaType" name="user.attributes.visaType" placeholder="Visa type..." tabindex="-1">
-                        <option value="Tier1">Tier 1 visa</option>
-                        <option value="Tier2">Tier 2 visa</option>
-                        <option value="Tier4">Tier 4 visa</option>
-                        <option value="Family">Family visa</option>
-                        <option value="Settlement">Settlement visa</option>
+                        <option value="NaturalizedBritishCitizen">Naturalized British citizen</option>
+                        <option value="EuEEACitizen">EU/EEA citizen</option>
+                        <option value="AsylumORHumanRightsClaim">Asylum or human rights claim </option>
+                        <option value="RefugeeStatus">Refugee status</option>
+                        <option value="RefusedAsylumOrHumanRightsClaim"> Refused asylum or human rights claim</option>
+                        <option value="WorkVisa">Work visa</option>
+                        <option value="StudentVisa">Student visa</option>
+                        <option value="FamilyVisa">Family (dependent or marriage) visa</option>
+                        <option value="IndefiniteLeaveToRemain">Indefinite leave to remain</option>
+                        <option value="ResidentPermitsForCommonwealthCitizens">Resident permits for Commonwealth citizens</option>
+                        <option value="NoLegalStatus">No legal status</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
             </div>
 
+
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">Date of arrival to the UK?</label>
+                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">When did you first arrive in the UK to live?</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!} input-group date-time-picker-pf" id="arrival-date-picker">
                     <input type="text" class="${properties.kcInputClass!}" id="user.attributes.arrivalDate" name="user.attributes.arrivalDate" value="${(register.formData['user.attributes.arrivalDate']!'')}"/>
                 </div>
             </div>
+
+            <hr/>
+
+            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('email',properties.kcFormGroupErrorClass!)}">
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="email" class="${properties.kcLabelClass!}">${msg("email")}</label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="text" id="email" class="${properties.kcInputClass!}" name="email" value="${(register.formData.email!'')}" autocomplete="email" />
+                </div>
+            </div>
+
+          <#if !realm.registrationEmailAsUsername>
+            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('username',properties.kcFormGroupErrorClass!)}">
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="username" class="${properties.kcLabelClass!}">${msg("username")}</label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="text" id="username" class="${properties.kcInputClass!}" name="username" value="${(register.formData.username!'')}" autocomplete="username" />
+                </div>
+            </div>
+          </#if>
+
+            <#if passwordRequired>
+            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('password',properties.kcFormGroupErrorClass!)}">
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="password" id="password" class="${properties.kcInputClass!}" name="password" autocomplete="new-password"/>
+                </div>
+            </div>
+
+            <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('password-confirm',properties.kcFormGroupErrorClass!)}">
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="password-confirm" class="${properties.kcLabelClass!}">${msg("passwordConfirm")}</label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="password" id="password-confirm" class="${properties.kcInputClass!}" name="password-confirm" />
+                </div>
+            </div>
+            </#if>
+
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
@@ -379,10 +400,11 @@
 
                 <div class="${properties.kcInputWrapperClass!}">
                     <select id="user-attributes-heardFrom" name="user.attributes.heardFrom" placeholder="Heard from..." tabindex="-1">
-                        <option value="Apple App Store">Apple App Store</option>
-                        <option value="Android Play Store">Android Play Store</option>
+                        <option value="AppleOrAndroidStore">Apple or Android Store</option>
+                        <option value="SocialMedia">Social media</option>
                         <option value="Email">Email</option>
-                        <option value="NGOs">NGOs</option>
+                        <option value="SupportOrganisationOrAgency">Support Organisation or agency</option>
+                        <option value="FamilyOrFriend">Family or Friend</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>
@@ -402,7 +424,7 @@
 
                 $(function () {
                     $('#arrival-date-picker').datetimepicker({
-                        format: 'L',
+                        format: 'YYYY',
                         allowInputToggle: true,
                         showTodayButton: true,
                         icons: {
