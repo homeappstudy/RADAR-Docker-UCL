@@ -34,6 +34,7 @@ volumes:
   zookeeper-2-log: {}
   zookeeper-3-log: {}
   radar-backend-monitor-disconnect-data: {}
+  keycloak-exports: {}
   certs:
     external: true
   certs-data:
