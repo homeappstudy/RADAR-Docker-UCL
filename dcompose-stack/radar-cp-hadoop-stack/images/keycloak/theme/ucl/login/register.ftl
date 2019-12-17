@@ -1,10 +1,13 @@
 <#import "template.ftl" as layout>
 <@layout.registrationLayout; section>
 
-    <img src="${url.resourcesPath}/img/keycloak-logo-text.png">
-
     <#if section = "header">
-        ${msg("registerTitle")}
+        <div>
+            <img src="${url.resourcesPath}/img/homeapp-xxxhdpi-icon.png">
+        </div>
+        <div >
+            ${msg("registerTitle")}
+        </div>
     <#elseif section = "form">
         <form id="kc-register-form" class="${properties.kcFormClass!}" action="${url.registrationAction}" method="post">
 
@@ -342,15 +345,13 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">When did you first arrive in the UK to live?</label>
+                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">When will you or did you first arrive in the UK to live?</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!} input-group date-time-picker-pf" id="arrival-date-picker">
                     <input type="text" class="${properties.kcInputClass!}" id="user.attributes.arrivalDate" name="user.attributes.arrivalDate" value="${(register.formData['user.attributes.arrivalDate']!'')}"/>
                 </div>
             </div>
-
-            <hr/>
 
             <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('email',properties.kcFormGroupErrorClass!)}">
                 <div class="${properties.kcLabelWrapperClass!}">
@@ -400,10 +401,10 @@
 
                 <div class="${properties.kcInputWrapperClass!}">
                     <select id="user-attributes-heardFrom" name="user.attributes.heardFrom" placeholder="Heard from..." tabindex="-1">
-                        <option value="AppleOrAndroidStore">Apple or Android Store</option>
+                        <option value="AppleOrAndroidStore">Apple or Google Play Store</option>
                         <option value="SocialMedia">Social media</option>
                         <option value="Email">Email</option>
-                        <option value="SupportOrganisationOrAgency">Support Organisation or agency</option>
+                        <option value="SupportOrganisationOrAgency">Support organisation</option>
                         <option value="FamilyOrFriend">Family or Friend</option>
                         <option value="Other">Other</option>
                     </select>
