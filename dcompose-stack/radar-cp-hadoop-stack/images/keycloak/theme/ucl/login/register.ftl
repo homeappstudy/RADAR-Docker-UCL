@@ -414,7 +414,8 @@
             <script>
                 $(function () {
                     $('#birth-date-picker').datetimepicker({
-                        format: 'L',
+                        format: 'DD-MM-YYYY',
+                        viewMode: 'years',
                         allowInputToggle: true,
                         showTodayButton: true,
                         icons: {
