@@ -4,17 +4,17 @@
 }
 
 .login-pf body {
-    background: #f4f4f4;
-    font-family: 'Montserrat', sans-serif
+    background: white;
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
 }
 
 .card-pf {
-    background: #f4f4f4;
-    font-family: 'Montserrat', sans-serif
+    background: white;
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
 }
 
 .login-pf-page label {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
     font-weight: normal;
     color: #312d90;
     font-size: 15px;
@@ -22,7 +22,7 @@
 
 .login-pf-page h1 {
     color: #312d90;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
     font-size: 40px;
     font-weight: normal;
 }
