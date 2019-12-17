@@ -416,6 +416,7 @@
                     $('#birth-date-picker').datetimepicker({
                         format: 'DD-MM-YYYY',
                         viewMode: 'years',
+                        maxDate: moment(),
                         allowInputToggle: true,
                         showTodayButton: true,
                         icons: {
