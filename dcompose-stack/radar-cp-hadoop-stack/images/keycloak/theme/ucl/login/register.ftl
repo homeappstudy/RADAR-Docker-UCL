@@ -1,12 +1,12 @@
 <#import "template.ftl" as layout>
 <@layout.registrationLayout; section>
 
+    <img src="${url.resourcesPath}/img/keycloak-logo-text.png">
+
     <#if section = "header">
         ${msg("registerTitle")}
     <#elseif section = "form">
         <form id="kc-register-form" class="${properties.kcFormClass!}" action="${url.registrationAction}" method="post">
-
-            <img src="${url.resourcesPath}/img/keycloak-logo-text.png">
 
             <div class="${properties.kcFormGroupClass!} ${messagesPerField.printIfExists('firstName',properties.kcFormGroupErrorClass!)}">
                 <div class="${properties.kcLabelWrapperClass!}">
