@@ -3,7 +3,7 @@
 
     <#if section = "header">
         <div>
-            <img src="${url.resourcesPath}/img/homeapp-xxxhdpi-icon.png">
+            <img src="${url.resourcesPath}/img/registration.png">
         </div>
         <div >
             ${msg("registerTitle")}
