@@ -53,10 +53,10 @@
                         <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Female" <#if (register.formData['user.attributes.sex']!'') == "Female" >checked</#if> style="margin-right: 0.4em;"> Female
                     </label>
                     <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Don't know" <#if (register.formData['user.attributes.sex']!'') == "Female" >checked</#if> style="margin-right: 0.4em;"> Don't know
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Not binary" <#if (register.formData['user.attributes.sex']!'') == "Not binary" >checked</#if> style="margin-right: 0.4em;"> Not binary
                     </label>
                     <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Prefer not to say" <#if (register.formData['user.attributes.sex']!'') == "Female" >checked</#if> style="margin-right: 0.4em;"> Prefer not to say
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Prefer not to say" <#if (register.formData['user.attributes.sex']!'') == "Prefer not to say" >checked</#if> style="margin-right: 0.4em;"> Prefer not to say
                     </label>
                 </div>
             </div>
@@ -404,7 +404,7 @@
                         <option value="AppleOrAndroidStore">Apple or Google Play Store</option>
                         <option value="SocialMedia">Social media</option>
                         <option value="Email">Email</option>
-                        <option value="SupportOrganisationOrAgency">Support organisation</option>
+                        <option value="SupportOrganisationOrGroup">Support organisation or group</option>
                         <option value="FamilyOrFriend">Family or Friend</option>
                         <option value="Other">Other</option>
                     </select>
