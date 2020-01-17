@@ -51,6 +51,7 @@ check_parent_exists HDFS_DATA_DIR_3 ${HDFS_DATA_DIR_3}
 check_parent_exists HDFS_NAME_DIR_1 ${HDFS_NAME_DIR_1}
 check_parent_exists HDFS_NAME_DIR_2 ${HDFS_NAME_DIR_2}
 check_parent_exists RB_POSTGRES_DIR ${RB_POSTGRES_DIR}
+check_parent_exists APP_ACCESS_LOGS_DIR ${APP_ACCESS_LOGS_DIR}
 
 # Checking provided passwords and environment variables
 ensure_env_default SERVER_NAME localhost

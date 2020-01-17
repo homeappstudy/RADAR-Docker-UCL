@@ -524,6 +524,7 @@ services:
       - "./etc/webserver/cors.conf:/etc/nginx/cors.conf:ro"
       - "./etc/webserver/ip-access-control.conf:/etc/nginx/ip-access-control.conf:ro"
       - "./etc/webserver/kafka-manager.htpasswd:/etc/nginx/kafka-manager.htpasswd:ro"
+      - "${APP_ACCESS_LOGS_DIR}/:/data/log/"
     # healthcheck hard to do, however, it is possible to monitor this externally
     # with
     # docker logs --since 2m radarcphadoopstack_webserver_1 | grep "connect() failed"
@@ -622,6 +623,7 @@ services:
       - "2222:2222"
     volumes:
       - ${RESTRUCTURE_OUTPUT_DIR}:/data/data:ro
+      - ${APP_ACCESS_LOGS_DIR}/:/data/log:ro"
       - keycloak-exports:/data/keycloak:ro
       - ./etc/sftp/users.conf:/etc/sftp/users.conf:ro
       - ./etc/sftp/authorized_keys:/etc/sftp/authorized_keys:ro
