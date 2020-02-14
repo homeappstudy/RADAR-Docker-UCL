@@ -1,0 +1,40 @@
+---
+version: '2.2'
+
+services:
+  radarbase-keycloak:
+    image: jboss/keycloak:4.8.3.Final
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./images/keycloak/theme/ucl:/opt/jboss/keycloak/themes/ucl
+    environment:
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      DB_VENDOR: postgres
+      DB_ADDR: radarbase-postgresql
+      DB_PORT: 5432
+      DB_DATABASE: rbkeycloak
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      PROXY_ADDRESS_FORWARDING: "true"
+    depends_on:
+      - radarbase-postgresql
+    restart: always
+
+
+  radarbase-postgresql:
+    image: postgres:${POSTGRES_VERSION}
+    volumes:
+      - "${RB_POSTGRES_DIR}/data/:/var/lib/postgresql/data/"
+      - "./postgres-backup/backups/postgresql:/backups/database/postgresql/"
+      - "./postgres-backup/scripts:/backup-scripts"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: rbkeycloak
+    healthcheck:
+      test: ["CMD-SHELL", "PGPASSWORD='${POSTGRES_PASSWORD}' psql -U '${POSTGRES_USER}' rbkeycloak -l || exit 1"]
+      interval: 1m30s
+      timeout: 5s
+      retries: 3

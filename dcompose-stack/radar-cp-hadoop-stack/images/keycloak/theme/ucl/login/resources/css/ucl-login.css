@@ -1,0 +1,70 @@
+.date-time-picker-pf {
+    margin-left: 18px;
+    padding-right: 36px !important;
+}
+
+.login-pf body {
+    background: #f4f4f4;
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+}
+
+.card-pf {
+    background: #f4f4f4;
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+}
+
+.login-pf-header {
+    font-size: 20px;
+}
+
+.login-pf-page label {
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+    font-weight: normal;
+    color: #312d90;
+    font-size: 15px;
+}
+
+.login-pf-page h1 {
+    color: #312d90;
+    font-family: 'Avant Garde', 'Avantgarde', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+    font-size: 40px;
+    font-weight: normal;
+}
+
+div.kc-logo-text {
+    background: url(../img/keycloak-logo-text.png) no-repeat;
+    width: 300px;
+    height: 136px;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    margin: 0;
+    box-shadow: none;
+    padding: 8px 32px;
+    height: 56px;
+    border: 2px solid white;
+    border-radius: 56px;
+    font-weight: normal;
+    color: #312d90;
+    font-size: 18px;
+    background-color: rgba(206, 238, 255, 0.2);
+    background-image: none;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+    border: 2px solid white;
+    background-color: rgba(206, 238, 255, 0.8);
+    color: #312d90;
+}
+
+hr {
+    display: block;
+    height: 0px;
+    border: 2px solid #312d90;
+    margin: 1em 0;
+    padding: 0;
+}

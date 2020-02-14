@@ -1,0 +1,3 @@
+[submodule "dcompose-stack/radar-cp-hadoop-stack/images/fcmxmppserverv2"]
+	path = dcompose-stack/radar-cp-hadoop-stack/images/fcmxmppserverv2
+	url = https://github.com/RADAR-base/fcmxmppserverv2.git
