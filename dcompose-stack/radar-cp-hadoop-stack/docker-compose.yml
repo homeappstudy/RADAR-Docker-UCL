@@ -624,9 +624,24 @@ services:
     volumes:
       - ${RESTRUCTURE_OUTPUT_DIR}:/data/data:ro
       - ${APP_ACCESS_LOGS_DIR}/:/data/log:ro"
-      - keycloak-exports:/data/keycloak:ro
+      - ${KEYCLOAK_DATA_EXPORT_LOCATION}/:/data/keycloak-export:ro"
       - ./etc/sftp/users.conf:/etc/sftp/users.conf:ro
       - ./etc/sftp/authorized_keys:/etc/sftp/authorized_keys:ro
       - ./etc/sftp/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
       - ./etc/sftp/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro
 
+  #---------------------------------------------------------------------------#
+  # User data exporter                                                        #
+  #---------------------------------------------------------------------------#
+  user-data-exporter:
+    image: radarbase/user-data-exporter:latest
+    networks:
+      - security
+    depends_on:
+      - radarbase-keycloak
+    volumes:
+      - ./etc/user-data-export:/etc/user-data-export
+      - "${KEYCLOAK_DATA_EXPORT_LOCATION}/:/etc/data/"
+    environment:
+      JAVA_OPTS: "-Dlogback.configurationFile=/etc/user-data-export/logback.xml"
+    command: ["user-data-exporter", "/etc/user-data-export/data-export-config.yml"]
