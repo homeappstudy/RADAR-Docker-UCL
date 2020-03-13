@@ -549,7 +549,7 @@ services:
       retries: 3
 
   radarbase-keycloak:
-    image: jboss/keycloak:4.8.3.Final
+    image: jboss/keycloak:9.0.0
     networks:
       - api
       - security
@@ -624,7 +624,7 @@ services:
     volumes:
       - ${RESTRUCTURE_OUTPUT_DIR}:/data/data:ro
       - ${APP_ACCESS_LOGS_DIR}/:/data/log:ro"
-      - ${KEYCLOAK_DATA_EXPORT_LOCATION}/:/data/keycloak-export:ro"
+      - ${KEYCLOAK_DATA_EXPORT_LOCATION}/:/data/keycloak-export"
       - ./etc/sftp/users.conf:/etc/sftp/users.conf:ro
       - ./etc/sftp/authorized_keys:/etc/sftp/authorized_keys:ro
       - ./etc/sftp/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro

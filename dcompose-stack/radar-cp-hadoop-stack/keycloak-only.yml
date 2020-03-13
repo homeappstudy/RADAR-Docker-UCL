@@ -3,7 +3,7 @@ version: '2.2'
 
 services:
   radarbase-keycloak:
-    image: jboss/keycloak:4.8.3.Final
+    image: jboss/keycloak:9.0.0
     ports:
       - "8080:8080"
     volumes:
@@ -43,8 +43,6 @@ services:
   #---------------------------------------------------------------------------#
   user-data-exporter:
     image: radarbase/user-data-exporter:latest
-#    networks:
-#      - security
     depends_on:
       - radarbase-keycloak
     volumes:

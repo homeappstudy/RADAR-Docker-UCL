@@ -1,5 +1,6 @@
 keycloakUrl: "http://radarbase-keycloak:8080/auth/"
 clientId: "user-data-export"
-clientSecret: ""
-realmName: "mighealth"
+clientSecret:
+realmName:
 userDataExportPath: "/etc/data/"
+exportIntervalInSeconds: 86400

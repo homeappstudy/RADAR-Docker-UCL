@@ -16,6 +16,7 @@ copy_template_if_absent etc/hdfs-connector/sink-hdfs.properties
 copy_template_if_absent etc/webserver/nginx.conf
 copy_template_if_absent etc/webserver/ip-access-control.conf
 copy_template_if_absent etc/gateway/gateway.yml
+copy_template_if_absent etc/user-data-expport/data-export-config.yml
 
 # Set permissions
 sudo-linux chmod og-rw ./.env
@@ -52,6 +53,7 @@ check_parent_exists HDFS_NAME_DIR_1 ${HDFS_NAME_DIR_1}
 check_parent_exists HDFS_NAME_DIR_2 ${HDFS_NAME_DIR_2}
 check_parent_exists RB_POSTGRES_DIR ${RB_POSTGRES_DIR}
 check_parent_exists APP_ACCESS_LOGS_DIR ${APP_ACCESS_LOGS_DIR}
+check_parent_exists KEYCLOAK_DATA_EXPORT_LOCATION ${KEYCLOAK_DATA_EXPORT_LOCATION}
 
 # Checking provided passwords and environment variables
 ensure_env_default SERVER_NAME localhost
