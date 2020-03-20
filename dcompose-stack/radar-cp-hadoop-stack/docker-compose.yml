@@ -524,6 +524,7 @@ services:
       - "./etc/webserver/cors.conf:/etc/nginx/cors.conf:ro"
       - "./etc/webserver/ip-access-control.conf:/etc/nginx/ip-access-control.conf:ro"
       - "./etc/webserver/kafka-manager.htpasswd:/etc/nginx/kafka-manager.htpasswd:ro"
+      - "./etc/webserver/optional-services.conf:/etc/nginx/optional-services.conf"
       - "${APP_ACCESS_LOGS_DIR}/:/data/log/"
     # healthcheck hard to do, however, it is possible to monitor this externally
     # with
@@ -605,8 +606,6 @@ services:
     volumes:
       - ./etc/gateway:/etc/radar-gateway
     command: ["radar-gateway", "/etc/radar-gateway/gateway.yml"]
-    environment:
-      RADAR_IS_CONFIG_LOCATION: /etc/radar-gateway/radar-is.yml
     healthcheck:
       # should give an unauthenticated response, rather than a 404
       test: ["CMD-SHELL", "wget --spider localhost/radar-gateway/topics 2>&1 | grep -q 401 || exit 1"]
@@ -630,3 +629,21 @@ services:
       - ./etc/sftp/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
       - ./etc/sftp/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro
 
+
+  radar-output:
+    image: radarbase/radar-hdfs-restructure:0.6.0
+    restart: always
+    stop_signal: SIGINT
+    networks:
+      - hadoop
+    depends_on:
+      - hdfs-namenode-1
+      - hdfs-datanode-1
+      - hdfs-datanode-2
+      - hdfs-datanode-3
+    volumes:
+      - ${RESTRUCTURE_OUTPUT_DIR}:/output
+      - ./etc/hdfs-restructure/restructure.yml:/etc/restructure.yml
+    environment:
+      RADAR_HDFS_RESTRUCTURE_OPTS: -Xms250m -Xmx2g
+    command: -F /etc/restructure.yml -S
