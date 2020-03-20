@@ -130,7 +130,7 @@ check_config_present() {
 self_signed_certificate() {
   SERVER_NAME=$1
   echo "==> Generating self-signed certificate"
-  sudo-linux docker run --rm -v certs:/etc/openssl -v certs-data:/var/lib/openssl -v "${PWD}/lib/self-sign-certificate.sh:/self-sign-certificate.sh" alpine:3.7 \
+  sudo-linux docker run --rm -v /data/certs:/etc/openssl -v /data/certs-data:/var/lib/openssl -v "${PWD}/lib/self-sign-certificate.sh:/self-sign-certificate.sh" alpine:3.7 \
       /self-sign-certificate.sh "/etc/openssl/live/${SERVER_NAME}"
 }
 
@@ -140,28 +140,31 @@ letsencrypt_certonly() {
   echo "==> Requesting Let's Encrypt SSL certificate for ${SERVER_NAME}"
 
   # start from a clean slate
-  sudo-linux docker run --rm -v certs:/etc/openssl alpine:3.7 /bin/sh -c "find /etc/openssl -name '${SERVER_NAME}*' -prune -exec rm -rf '{}' +"
+  sudo-linux docker run --rm -v /data/certs:/etc/openssl alpine:3.7 /bin/sh -c "find /etc/openssl -name '${SERVER_NAME}*' -prune -exec rm -rf '{}' +"
 
-  CERTBOT_DOCKER_OPTS=(--rm -v certs:/etc/letsencrypt -v certs-data:/data/letsencrypt deliverous/certbot)
-  CERTBOT_OPTS=(--webroot --webroot-path=/data/letsencrypt --agree-tos -m "${MAINTAINER_EMAIL}" -d "${SERVER_NAME}" --non-interactive)
+
+  CERTBOT_DOCKER_OPTS=(--rm -v /data/cert-logs:/var/log/letsencrypt/ -v /data/certs:/etc/letsencrypt -v /data/certs-data:/data/letsencrypt deliverous/certbot)
+  
+  CERTBOT_OPTS=(--server "https://acme-v02.api.letsencrypt.org/directory" --webroot --webroot-path=/data/letsencrypt --agree-tos -m "${MAINTAINER_EMAIL}" -d "${SERVER_NAME}" --non-interactive)
   sudo-linux docker run "${CERTBOT_DOCKER_OPTS[@]}" certonly "${CERTBOT_OPTS[@]}"
 
   # mark the directory as letsencrypt dir
-  sudo-linux docker run --rm -v certs:/etc/openssl alpine:3.7 /bin/touch "${SSL_PATH}/.letsencrypt"
+  sudo-linux docker run --rm -v /data/certs:/etc/openssl alpine:3.7 /bin/touch "${SSL_PATH}/.letsencrypt"
 }
 
 letsencrypt_renew() {
   SERVER_NAME=$1
   echo "==> Renewing Let's Encrypt SSL certificate for ${SERVER_NAME}"
-  CERTBOT_DOCKER_OPTS=(--rm -v certs:/etc/letsencrypt -v certs-data:/data/letsencrypt deliverous/certbot)
-  CERTBOT_OPTS=(-n --webroot --webroot-path=/data/letsencrypt -d "${SERVER_NAME}" --non-interactive)
+  CERTBOT_DOCKER_OPTS=(--rm -v /data/certs:/etc/letsencrypt -v /data/cert-logs:/var/log/letsencrypt/ -v /data/certs-data:/data/letsencrypt deliverous/certbot)
+  
+  CERTBOT_OPTS=(-n --server "https://acme-v02.api.letsencrypt.org/directory" --webroot --webroot-path=/data/letsencrypt -d "${SERVER_NAME}" --non-interactive)
   sudo-linux docker run "${CERTBOT_DOCKER_OPTS[@]}" certonly "${CERTBOT_OPTS[@]}"
 }
 
 init_certificate() {
   SERVER_NAME=$1
   SSL_PATH="/etc/openssl/live/${SERVER_NAME}"
-  if sudo-linux docker run --rm -v certs:/etc/openssl alpine:3.7 /bin/sh -c "[ ! -e '${SSL_PATH}/chain.pem' ]"; then
+  if sudo-linux docker run --rm -v /data/certs:/etc/openssl alpine:3.7 /bin/sh -c "[ ! -e '${SSL_PATH}/chain.pem' ]"; then
     self_signed_certificate "${SERVER_NAME}"
   fi
 }
@@ -172,7 +175,7 @@ request_certificate() {
   SSL_PATH="/etc/openssl/live/${SERVER_NAME}"
 
   init_certificate "${SERVER_NAME}"
-  CURRENT_CERT=$(sudo-linux docker run --rm -v certs:/etc/openssl alpine:3.7 /bin/sh -c "[ -e '${SSL_PATH}/.letsencrypt' ] && echo letsencrypt || echo self-signed")
+  CURRENT_CERT=$(sudo-linux docker run --rm -v /data/certs:/etc/openssl alpine:3.7 /bin/sh -c "[ -e '${SSL_PATH}/.letsencrypt' ] && echo letsencrypt || echo self-signed")
 
   if [ "${CURRENT_CERT}" = "letsencrypt" ]; then
     if [ "$3" != "force" ]; then

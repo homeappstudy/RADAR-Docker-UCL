@@ -16,6 +16,7 @@ copy_template_if_absent etc/hdfs-connector/sink-hdfs.properties
 copy_template_if_absent etc/webserver/nginx.conf
 copy_template_if_absent etc/webserver/ip-access-control.conf
 copy_template_if_absent etc/gateway/gateway.yml
+copy_template_if_absent etc/hdfs-restructure/restructure.yml
 copy_template_if_absent etc/user-data-export/data-export-config.yml
 
 # Set permissions
