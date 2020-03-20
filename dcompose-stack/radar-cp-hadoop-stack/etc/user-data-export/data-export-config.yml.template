@@ -1,6 +1,6 @@
 keycloakUrl: "http://radarbase-keycloak:8080/auth/"
 clientId: "user-data-export"
 clientSecret:
-realmName:
+realmName: "homeappstudy"
 userDataExportPath: "/etc/data/"
 exportIntervalInSeconds: 86400

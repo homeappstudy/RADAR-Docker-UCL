@@ -550,7 +550,7 @@ services:
       retries: 3
 
   radarbase-keycloak:
-    image: jboss/keycloak:9.0.0
+    image: jboss/keycloak:4.8.3.Final
     networks:
       - api
       - security
