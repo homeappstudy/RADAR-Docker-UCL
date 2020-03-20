@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 if [[ $# -lt 1 || $1 = "-h" || $1 = "--help" ]]; then
@@ -77,7 +78,6 @@ sudo-linux docker run ${DOCKER_OPTS} \
     -v "$OUTPUT_DIR:$HDFS_OUTPUT_DIR" \
     -e RADAR_HDFS_RESTRUCTURE_OPTS \
     $DOCKER_IMAGE "${HDFS_COMMAND[@]}"
-
 if ! ${RESTRUCTURE_ENABLE_SNAPSHOTS:-true}; then
   echo "Snapshots disabled. No snapshots will be made."
   exit 0
