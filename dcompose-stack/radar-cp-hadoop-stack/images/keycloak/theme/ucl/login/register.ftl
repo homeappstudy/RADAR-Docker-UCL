@@ -42,22 +42,22 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user.attributes.sex.male" class="${properties.kcLabelClass!}">Sex</label>
+                    <label for="user.attributes.sex.male" class="${properties.kcLabelClass!}">Which of the following describes how you think of yourself?</label>
                 </div>
 
                 <div>
                     <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.male" value="Male" <#if (register.formData['user.attributes.sex']!'') == "Male" >checked</#if> style="margin-right: 0.4em;"> Male
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.man" value="Man" <#if (register.formData['user.attributes.sex']!'') == "Man" >checked</#if> style="margin-right: 0.4em;"> Man
                     </label>
                     <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Female" <#if (register.formData['user.attributes.sex']!'') == "Female" >checked</#if> style="margin-right: 0.4em;"> Female
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.woman" value="Woman" <#if (register.formData['user.attributes.sex']!'') == "Woman" >checked</#if> style="margin-right: 0.4em;"> Woman
                     </label>
                     <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Not binary" <#if (register.formData['user.attributes.sex']!'') == "Not binary" >checked</#if> style="margin-right: 0.4em;"> Not binary
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.not" value="In another way" <#if (register.formData['user.attributes.sex']!'') == "In another way" >checked</#if> style="margin-right: 0.4em;"> In another way
                     </label>
-                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Prefer not to say" <#if (register.formData['user.attributes.sex']!'') == "Prefer not to say" >checked</#if> style="margin-right: 0.4em;"> Prefer not to say
-                    </label>
+<#--                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+<#--                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Prefer not to say" <#if (register.formData['user.attributes.sex']!'') == "Prefer not to say" >checked</#if> style="margin-right: 0.4em;"> Prefer not to say-->
+<#--                    </label>-->
                 </div>
             </div>
 
