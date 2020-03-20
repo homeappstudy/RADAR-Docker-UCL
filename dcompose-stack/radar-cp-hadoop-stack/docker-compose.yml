@@ -491,7 +491,7 @@ services:
   # Docker Monitoring                                                         #
   #---------------------------------------------------------------------------#
   portainer:
-    image: portainer/portainer:1.19.1
+    image: portainer/portainer:1.23.1
     command: --admin-password '${PORTAINER_PASSWORD_HASH}'
     networks:
       - monitor
@@ -531,7 +531,7 @@ services:
 
 
   radarbase-postgresql:
-    image: postgres:${POSTGRES_VERSION}
+    image: postgres:12.2-alpine
     networks:
       - security
     volumes:
@@ -596,7 +596,7 @@ services:
   # RADAR Gateway                                                             #
   #---------------------------------------------------------------------------#
   gateway:
-    image: radarbase/radar-gateway:0.3.6
+    image: radarbase/radar-gateway:0.3.9
     networks:
       - api
       - kafka
@@ -623,7 +623,7 @@ services:
       - "2222:2222"
     volumes:
       - ${RESTRUCTURE_OUTPUT_DIR}:/data/data:ro
-      - ${APP_ACCESS_LOGS_DIR}/:/data/log:ro"
+      - ${APP_ACCESS_LOGS_DIR}/:/data/log:ro
       - keycloak-exports:/data/keycloak:ro
       - ./etc/sftp/users.conf:/etc/sftp/users.conf:ro
       - ./etc/sftp/authorized_keys:/etc/sftp/authorized_keys:ro
