@@ -58,11 +58,21 @@
 
         <div class="form-group">
             <div class="col-sm-2 col-md-2">
-                <label for="user.attributes.projectName" class="control-label">Project Name</label>
+                <label for="user.attributes.sex" class="control-label">sex</label>
             </div>
 
             <div class="col-sm-10 col-md-10">
-                <input type="text" class="form-control" id="user.attributes.projectName" name="user.attributes.projectName" value="${(account.attributes.projectName!'')}"/>
+                <input type="text" class="form-control" id="user.attributes.sex" name="user.attributes.sex" value="${(account.attributes.sex!'')}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-2 col-md-2">
+                <label for="user.attributes.projectName" class="control-label">Project name </label>
+            </div>
+
+            <div class="col-sm-10 col-md-10">
+                <input type="text" class="form-control" id="user.attributes.projectName" name="user.attributes.projectName" disabled="disabled" value="${(account.attributes.projectName!'')}"/>
             </div>
         </div>
 
