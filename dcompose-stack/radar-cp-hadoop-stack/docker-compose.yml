@@ -637,6 +637,7 @@ services:
     image: radarbase/user-data-export:latest
     networks:
       - security
+      - api
     depends_on:
       - radarbase-keycloak
     volumes:
