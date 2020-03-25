@@ -632,7 +632,7 @@ services:
   #---------------------------------------------------------------------------#
   # User data exporter                                                        #
   #---------------------------------------------------------------------------#
-  user-data-exporter:
+  user-data-manager:
     image: radarbase/user-data-export:latest
     networks:
       - security
@@ -643,7 +643,7 @@ services:
       - "${KEYCLOAK_DATA_EXPORT_LOCATION}/:/etc/data/"
     environment:
       JAVA_OPTS: "-Dlogback.configurationFile=/etc/user-data-export/logback.xml"
-    command: ["user-data-exporter", "/etc/user-data-export/data-export-config.yml"]
+    command: ["user-data-manager", "/etc/user-data-export/data-export-config.yml"]
 
 
   #---------------------------------------------------------------------------#

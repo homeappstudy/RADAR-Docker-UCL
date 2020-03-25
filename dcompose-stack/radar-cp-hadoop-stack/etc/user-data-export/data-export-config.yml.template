@@ -1,6 +1,12 @@
+baseUri: "http://0.0.0.0:8085/user-management/api/"
 keycloakUrl: "http://radarbase-keycloak:8080/auth/"
-clientId: "user-data-export"
+clientId: "user-data-manager"
 clientSecret:
 realmName: "homeappstudy"
 userDataExportPath: "/etc/data/"
-exportIntervalInSeconds: 86400
+exportIntervalInMin: 1440
+jwtRSAPublicKeys:
+  - |-
+    -----BEGIN PUBLIC KEY-----
+    ...
+    -----END PUBLIC KEY-----

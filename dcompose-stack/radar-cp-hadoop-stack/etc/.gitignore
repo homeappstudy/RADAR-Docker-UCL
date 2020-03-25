@@ -23,4 +23,6 @@ radar-is.yml
 /sftp/ssh_host_*_key
 /gateway/gateway.yml
 /gateway/keystore.p12
+/user-data-export/data-export-config.yml
+/hdfs-restructure/restructure.yml
 keystore.p12

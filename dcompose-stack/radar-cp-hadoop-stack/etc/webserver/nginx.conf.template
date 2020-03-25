@@ -135,9 +135,19 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header Host $host;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-#      proxy_set_header X-Forwarded-Proto $scheme;
-
+      proxy_set_header X-Forwarded-Proto $scheme;
     }
+
+    location /user-management/api/ {
+    #  include cors.conf;
+      proxy_pass         http://user-data-manager:8085/user-management/api/;
+      proxy_set_header   Host $host;
+
+      limit_except POST OPTIONS {
+        deny all;
+      }
+    }
+
     location /app {
       access_log /data/log/app_download_log.log app_download_log;
       return 301 https://play.google.com/store/apps/details?id=uk.ac.ucl.ihi.onthemove;
