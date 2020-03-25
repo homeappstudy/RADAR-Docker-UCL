@@ -614,7 +614,7 @@ services:
       retries: 3
 
   sftp:
-    image: mighealth/sftp:alpine
+          #image: mighealth/sftp:alpine
     build: images/sftp
     networks:
       - default
@@ -628,6 +628,7 @@ services:
       - ./etc/sftp/authorized_keys:/etc/sftp/authorized_keys:ro
       - ./etc/sftp/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
       - ./etc/sftp/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro
+      - ./etc/sftp/init-user-keys.sh:/etc/sftp.d/init-user-keys.sh
 
   #---------------------------------------------------------------------------#
   # User data exporter                                                        #
