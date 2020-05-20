@@ -69,6 +69,7 @@
                 <div class="${properties.kcInputWrapperClass!}">
                     <select id="user-attributes-country" name="user.attributes.country" placeholder="Select a country..." tabindex="-1" data-value="${(register.formData['user.attributes.country']!'')}">
                         <option value="">Select a country...</option>
+                        <option value="DoNotKnow">Don't know</option>
                         <option value="AF">Afghanistan</option>
                         <option value="AX">&Aring;land Islands</option>
                         <option value="AL">Albania</option>
@@ -345,7 +346,7 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">When will you or did you first arrive in the UK to live?</label>
+                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">When did you first arrive in the UK to live?</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!} input-group date-time-picker-pf" id="arrival-date-picker">
