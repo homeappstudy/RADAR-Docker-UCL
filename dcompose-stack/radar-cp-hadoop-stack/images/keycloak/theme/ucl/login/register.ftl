@@ -46,13 +46,13 @@
                 </div>
 
                 <div>
-                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <input type="radio" name="user.attributes.sex" id="user.attributes.sex.man" value="Man" <#if (register.formData['user.attributes.sex']!'') == "Man" >checked</#if> style="margin-right: 0.4em;"> Man
                     </label>
-                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <input type="radio" name="user.attributes.sex" id="user.attributes.sex.woman" value="Woman" <#if (register.formData['user.attributes.sex']!'') == "Woman" >checked</#if> style="margin-right: 0.4em;"> Woman
                     </label>
-                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <input type="radio" name="user.attributes.sex" id="user.attributes.sex.not" value="In another way" <#if (register.formData['user.attributes.sex']!'') == "In another way" >checked</#if> style="margin-right: 0.4em;"> In another way
                     </label>
 <#--                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
