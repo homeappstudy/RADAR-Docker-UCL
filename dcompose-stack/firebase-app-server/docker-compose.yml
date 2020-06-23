@@ -34,5 +34,5 @@ services:
       RADAR_XMPP_FCM_SERVER_KEY: ${FCM_SERVER_KEY}
       RADAR_XMPP_SCHEDULER_TYPE: "server"
       RADAR_XMPP_DB_PATH: "//hsqldb:9001/notification"
-      RADAR_XMPP_CACHE_EXPIRY: 300
+      RADAR_XMPP_CACHE_EXPIRY: 30
       JAVA_OPTS: "-Xms256m -Xmx1G"
