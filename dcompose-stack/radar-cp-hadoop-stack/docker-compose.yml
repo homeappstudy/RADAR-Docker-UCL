@@ -552,6 +552,7 @@ services:
   radarbase-keycloak:
     image: jboss/keycloak:4.8.3.Final
     networks:
+      - default
       - api
       - security
     volumes:
