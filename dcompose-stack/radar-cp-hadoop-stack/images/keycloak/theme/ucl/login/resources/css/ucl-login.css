@@ -22,6 +22,7 @@
     font-weight: normal;
     color: #312d90;
     font-size: 15px;
+    text-align: left !important;
 }
 
 .login-pf-page h1 {
@@ -68,3 +69,4 @@ hr {
     margin: 1em 0;
     padding: 0;
 }
+

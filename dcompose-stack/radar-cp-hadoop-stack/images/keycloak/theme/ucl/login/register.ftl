@@ -32,7 +32,7 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user.attributes.birthdate" class="${properties.kcLabelClass!}">Date of birth</label>
+                    <label for="user.attributes.birthdate" class="${properties.kcLabelClass!}">${msg("dateOfBirth")}</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!} input-group date-time-picker-pf" id="birth-date-picker">
@@ -42,18 +42,18 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user.attributes.sex.male" class="${properties.kcLabelClass!}">Which of the following describes how you think of yourself?</label>
+                    <label for="user.attributes.sex.male" class="${properties.kcLabelClass!}">${msg("whatIsYourSex")}</label>
                 </div>
 
                 <div>
                     <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.man" value="Man" <#if (register.formData['user.attributes.sex']!'') == "Man" >checked</#if> style="margin-right: 0.4em;"> Man
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.man" value="Man" <#if (register.formData['user.attributes.sex']!'') == "Man" >checked</#if> style="margin-right: 0.4em;"> ${msg("man")}
                     </label>
                     <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.woman" value="Woman" <#if (register.formData['user.attributes.sex']!'') == "Woman" >checked</#if> style="margin-right: 0.4em;"> Woman
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.woman" value="Woman" <#if (register.formData['user.attributes.sex']!'') == "Woman" >checked</#if> style="margin-right: 0.4em;"> ${msg("women")}
                     </label>
                     <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.not" value="In another way" <#if (register.formData['user.attributes.sex']!'') == "In another way" >checked</#if> style="margin-right: 0.4em;"> In another way
+                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.not" value="In another way" <#if (register.formData['user.attributes.sex']!'') == "In another way" >checked</#if> style="margin-right: 0.4em;"> ${msg("otherway")}
                     </label>
 <#--                    <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
 <#--                        <input type="radio" name="user.attributes.sex" id="user.attributes.sex.female" value="Prefer not to say" <#if (register.formData['user.attributes.sex']!'') == "Prefer not to say" >checked</#if> style="margin-right: 0.4em;"> Prefer not to say-->
@@ -63,11 +63,12 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user-attributes-country" class="${properties.kcLabelClass!}">Where were you born?</label>
+                    <label for="user-attributes-country" class="${properties.kcLabelClass!}">${msg("wherewereyouborn")}</label>
                 </div>
 
+<#--                https://gist.github.com/xecgr/dbf00d3ffa4a0ec7d2e7-->
                 <div class="${properties.kcInputWrapperClass!}">
-                    <select id="user-attributes-country" name="user.attributes.country" placeholder="Select a country..." tabindex="-1" data-value="${(register.formData['user.attributes.country']!'')}">
+                    <select id="user-attributes-country" name="user.attributes.country" placeholder=${msg("selectacountry")} tabindex="-1" data-value="${(register.formData['user.attributes.country']!'')}">
                         <option value="">Select a country...</option>
                         <option value="DoNotKnow">Don't know</option>
                         <option value="AF">Afghanistan</option>
@@ -322,23 +323,23 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user-attributes-visaType" class="${properties.kcLabelClass!}">What is your current immigration status in the UK?</label>
+                    <label for="user-attributes-visaType" class="${properties.kcLabelClass!}">${msg("whatisyourimmigrationStatus")}</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!}">
-                    <select id="user-attributes-visaType" name="user.attributes.visaType" placeholder="Visa type..." tabindex="-1">
-                        <option value="NaturalizedBritishCitizen">Naturalized British citizen</option>
-                        <option value="EuEEACitizen">EU/EEA citizen</option>
-                        <option value="AsylumORHumanRightsClaim">Asylum or human rights claim </option>
-                        <option value="RefugeeStatus">Refugee status</option>
-                        <option value="RefusedAsylumOrHumanRightsClaim"> Refused asylum or human rights claim</option>
-                        <option value="WorkVisa">Work visa</option>
-                        <option value="StudentVisa">Student visa</option>
-                        <option value="FamilyVisa">Family (dependent or marriage) visa</option>
-                        <option value="IndefiniteLeaveToRemain">Indefinite leave to remain</option>
-                        <option value="ResidentPermitsForCommonwealthCitizens">Resident permits for Commonwealth citizens</option>
-                        <option value="NoLegalStatus">No legal status</option>
-                        <option value="Other">Other</option>
+                    <select id="user-attributes-visaType" name="user.attributes.visaType" placeholder=${msg("visatypeplaceholder")} tabindex="-1">
+                        <option value="1">${msg("visa1")}</option>
+                        <option value="2">${msg("visa2")}</option>
+                        <option value="3">${msg("visa3")}</option>
+                        <option value="4">${msg("visa4")}</option>
+                        <option value="5">${msg("visa5")}</option>
+                        <option value="6">${msg("visa6")}</option>
+                        <option value="7">${msg("visa7")}</option>
+                        <option value="8">${msg("visa8")}</option>
+                        <option value="9">${msg("visa9")}</option>
+                        <option value="10">${msg("visa10")}</option>
+                        <option value="11">${msg("visa11")}</option>
+                        <option value="12">${msg("visa12")}</option>
                     </select>
                 </div>
             </div>
@@ -346,7 +347,7 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">When did you first arrive in the UK to live?</label>
+                    <label for="user.attributes.arrivalDate" class="${properties.kcLabelClass!}">${msg("whendidyoufirstarrive")}</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!} input-group date-time-picker-pf" id="arrival-date-picker">
@@ -397,17 +398,17 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="user-attributes-heardFrom" class="${properties.kcLabelClass!}">How did you hear about the Health on the Move App?</label>
+                    <label for="user-attributes-heardFrom" class="${properties.kcLabelClass!}">${msg("howdidyouhearaboutus")}</label>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!}">
                     <select id="user-attributes-heardFrom" name="user.attributes.heardFrom" placeholder="Heard from..." tabindex="-1">
-                        <option value="AppleOrAndroidStore">Apple or Google Play Store</option>
-                        <option value="SocialMedia">Social media</option>
-                        <option value="Email">Email</option>
-                        <option value="SupportOrganisationOrGroup">Support organisation or group</option>
-                        <option value="FamilyOrFriend">Family or Friend</option>
-                        <option value="Other">Other</option>
+                        <option value="AppleOrAndroidStore">${msg("appstore")}</option>
+                        <option value="SocialMedia">${msg("socialmedia")}</option>
+                        <option value="Email">${msg("viaemail")}</option>
+                        <option value="SupportOrganisationOrGroup">${msg("supportOrganisationOrGroup")}</option>
+                        <option value="FamilyOrFriend">${msg("familyOrFriend")}</option>
+                        <option value="Other">${msg("other")}</option>
                     </select>
                 </div>
             </div>
