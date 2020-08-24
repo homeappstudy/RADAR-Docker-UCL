@@ -38,16 +38,16 @@ services:
       interval: 1m30s
       timeout: 5s
       retries: 3
-  #---------------------------------------------------------------------------#
-  # User data exporter                                                        #
-  #---------------------------------------------------------------------------#
-  user-data-exporter:
-    image: radarbase/user-data-export:latest
-    depends_on:
-      - radarbase-keycloak
-    volumes:
-      - ./etc/user-data-export:/etc/user-data-export
-      - "${KEYCLOAK_DATA_EXPORT_LOCATION}/:/etc/data/"
-    environment:
-      JAVA_OPTS: "-Dlogback.configurationFile=/etc/user-data-export/logback.xml"
-    command: ["user-data-exporter", "/etc/user-data-export/data-export-config.yml"]
+#  #---------------------------------------------------------------------------#
+#  # User data exporter                                                        #
+#  #---------------------------------------------------------------------------#
+#  user-data-exporter:
+#    image: radarbase/user-data-export:latest
+#    depends_on:
+#      - radarbase-keycloak
+#    volumes:
+#      - ./etc/user-data-export:/etc/user-data-export
+#      - "${KEYCLOAK_DATA_EXPORT_LOCATION}/:/etc/data/"
+#    environment:
+#      JAVA_OPTS: "-Dlogback.configurationFile=/etc/user-data-export/logback.xml"
+#    command: ["user-data-exporter", "/etc/user-data-export/data-export-config.yml"]
