@@ -68,7 +68,7 @@
 
 <#--                https://gist.github.com/xecgr/dbf00d3ffa4a0ec7d2e7-->
                 <div class="${properties.kcInputWrapperClass!}">
-                    <select id="user-attributes-country" name="user.attributes.country" placeholder=${msg("selectacountry")} tabindex="-1" data-value="${(register.formData['user.attributes.country']!'')}">
+                    <select id="user-attributes-country" name="user.attributes.country" placeholder="${msg('selectacountry')}" tabindex="-1" data-value="${(register.formData['user.attributes.country']!'')}">
                         <option value="">${msg("selectacountry")}</option>
                         <option value="DoNotKnow">${msg("dontknow")}</option>
                         <option value="AF">Afghanistan</option>
